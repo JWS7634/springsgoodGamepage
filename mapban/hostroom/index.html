@@ -80,8 +80,10 @@
 				CodeList = PlayerCodelist;
 			});
 
-			socket.on('MapBanEnd', (index,Code) => {
+			socket.on('MapBanEnd', (data) => {
 				var clientindex = 0;
+				const Code = data.substr(0,7);
+				const index = data.substr(8);
 				for(var i = 0; i < MapBanList.length; i++)
 				{
 					if(MapBanList[i] == false)

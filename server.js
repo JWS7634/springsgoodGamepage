@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
 			console.log(BanedMapNum);
 			if(BanedMapNum == 6)
 			{
-				io.emit('MapBanEnd',Math.floor(Math.random()*4+1), MapBanPlayerlist[Math.floor(Math.random()*2+1)]);
+				io.emit('MapBanEnd',MapBanPlayerlist[Math.floor(Math.random()*2)]+":"+Math.floor(Math.random()*4+1));
 			}
 		}
 	});
