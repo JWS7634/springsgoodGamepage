@@ -1,0 +1,156 @@
+<html>
+	<head>
+		<title>봄이좋냐배 발로대회</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../css/mapban.css">
+	</head>
+	<body>
+		<div class="banner-box">
+		</div>
+		<div class="banner-box-opz">
+		</div>
+		<div class="title-bar">
+		<h2>맵 밴</h2>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var PlayerCode;
+			window.onload = function(){
+				console.log(sessionStorage.getItem("CodeAuth"));
+				if(sessionStorage.getItem("CodeAuth") == null)
+					document.location.href = '/mapbanmain/';
+				else
+					PlayerCode = sessionStorage.getItem("CodeAuth");
+			};
+			const socket = io();
+			var MapBanList = [false,false,false,false,false,false,false,false,false,false];
+			function BanChange(BanNum)
+			{
+				BanedImg = document.createElement('img');
+				BanedImg.src = "../image/mapban/밴.png";
+				BanedImg.className = "BanedMark";
+				BanedImg.setAttribute("oncontextmenu", "return false");
+				BanedImg.setAttribute("onselectstart", "return false");
+				BanedImg.setAttribute("ondragstart", "return false");
+				document.getElementById('Ban'+BanNum).className="Baned";
+				document.getElementById('Ban'+BanNum).setAttribute("onClick","");
+				document.getElementById('Ban'+BanNum+'li').appendChild(BanedImg);
+			}
+
+			function MapDisableChange(BanNum)
+			{
+				document.getElementById('Ban'+BanNum).className="BanDisabled";
+				document.getElementById('Ban'+BanNum).setAttribute("onClick","");
+			}
+
+			function MapPickChange(BanNum)
+			{
+				BanedImg = document.createElement('img');
+				BanedImg.src = "../image/mapban/픽.png";
+				BanedImg.className = "BanedMark";
+				BanedImg.setAttribute("oncontextmenu", "return false");
+				BanedImg.setAttribute("onselectstart", "return false");
+				BanedImg.setAttribute("ondragstart", "return false");
+				document.getElementById('Ban'+BanNum).className="Picked";
+				document.getElementById('Ban'+BanNum).setAttribute("onClick","");
+				document.getElementById('Ban'+BanNum+'li').appendChild(BanedImg);
+			}
+
+			function BanClick(BanNum)
+			{
+				socket.emit('MapBan', PlayerCode+":"+BanNum);
+			}
+
+			socket.on('MapBan', (BanIndex) => {
+				MapBanList[BanIndex - 1] = true;
+				BanChange(BanIndex);
+				const MapList=["스플릿","바인드","헤이븐","어센트","아이스박스","브리즈","프랙처","펄","로터스","선셋"];
+			});
+
+			socket.on('MapBanStart', (SecondBanCode) => {
+				
+				for(var i = 1; i < 11; i++)
+				{
+					document.getElementById('Ban'+i).setAttribute("onClick","BanClick("+i+")");
+				}
+
+				if(SecondBanCode == PlayerCode)
+					alert("후 픽 입니다");
+				else
+					alert("선 픽 입니다");
+
+				MapBanList=[false,false,false,false,false,false,false,false,false,false];
+			});
+
+			socket.on('MapBanEnd', (index) => {
+				var clientindex = 0;
+				for(var i = 0; i < MapBanList.length; i++)
+				{
+					if(MapBanList[i] == false)
+					{
+						clientindex++;
+						MapDisableChange(i + 1);
+					}
+					if(clientindex == index)
+					{
+						clientindex++;
+						MapPickChange(i + 1);
+					}
+				}
+
+				if(Code == PlayerCode)
+					alert("선 공격 입니다");
+				else
+					alert("선 수비 입니다");
+			});
+		</script>
+
+		<div class="context-box">
+			<div class="main-content">
+				<ul class="Banlist">
+					<li id="Ban1li">
+						<img src="../image/mapban/스플릿.png" id="Ban1" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>스플릿</div>
+					</li>
+					<li id="Ban2li">
+						<img src="../image/mapban/바인드.png" id="Ban2" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>바인드</div>
+					</li>
+					<li id="Ban3li">
+						<img src="../image/mapban/헤이븐.png" id="Ban3" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>헤이븐</div>
+					</li>
+					<li id="Ban4li">
+						<img src="../image/mapban/어센트.png" id="Ban4" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>어센트</div>
+					</li>
+					<li id="Ban5li">
+						<img src="../image/mapban/아이스박스.png" id="Ban5" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>아이스박스</div>
+					</li>
+					<li id="Ban6li">
+						<img src="../image/mapban/브리즈.png" id="Ban6" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>브리즈</div>
+					</li>
+					<li id="Ban7li">
+						<img src="../image/mapban/프랙처.png" id="Ban7" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>프랙처</div>
+					</li>
+					<li id="Ban8li">
+						<img src="../image/mapban/펄.png" id="Ban8" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>펄</div>
+					</li>
+					<li id="Ban9li">
+						<img src="../image/mapban/로터스.png" id="Ban9" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>로터스</div>
+					</li>
+					<li id="Ban10li">
+						<img src="../image/mapban/선셋.png" id="Ban10" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+						<div>선셋</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

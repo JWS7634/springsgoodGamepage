@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>봄이좋냐배 발로대회</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+	</head>
+	<body>
+		<script>
+			function CodeLogin()
+			{
+				const form = document.createElement('form');
+				form.setAttribute('method', 'post');
+				form.setAttribute('action', '/signin');
+				const data_1 = document.createElement('input');
+				data_1.setAttribute('type', 'text');
+				data_1.setAttribute('code', document.getElementById("PlayerCode").value);
+				form.appendChild(data_1);
+				document.body.appendChild(form);
+				form.submit();
+			}
+		</script>
+		<div class="banner-box">
+		</div>
+		<div class="banner-box-opz">
+		</div>
+		<div class="title-bar">
+		<h2>봄이좋냐배 발로란트 대회 1회차</h2>
+		</div>
+		<div class="Menu-Button">
+			<ul>
+				<li><button onclick="location.href='../main'">메인</button></li>
+				<li><button onclick="location.href='../table'">대진표</buttona></li>
+				<li><button class="active">맵밴</button></li>
+				<li><button onclick="location.href='../acution'">경매</button></li>
+			</ul>
+		</div>
+	
+		<div class="context-box">
+			<div class="main-content">
+				<form action="/signin" method="post">
+				<input id="PlayerCode" class="input-index" placeholder="팀 코드" type="text" name="PlayerCode" autocomplete="off">
+				<button type="submit" class="PreSetButton">
+					방 입장
+				</button>
+				<button class="PreSetButton">
+					방 생성(관리자만 가능)
+				</button>
+			</div>
+		</div>
+	</body>
+</html>
