@@ -99,7 +99,7 @@ io.on('connection', (socket) => {
 	});
 	socket.on('MapBanStart', function () {
 		MapBanList=[false,false,false,false,false,false,false,false,false,false];
-		LatestBanPlayer = MapBanPlayerlist[Math.floor(Math.random()*2+1)]
+		LatestBanPlayer = MapBanPlayerlist[Math.floor(Math.random()*2)]
 		io.emit('MapBanStart', LatestBanPlayer);
 		BanedMapNum = 0;
 	});

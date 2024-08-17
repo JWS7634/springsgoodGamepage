@@ -75,15 +75,17 @@
 					document.getElementById('Ban'+i).setAttribute("onClick","BanClick("+i+")");
 				}
 
-				if(SecondBanCode == PlayerCode)
-					alert("후 픽 입니다");
+				console.log(PlayerCode);
+				console.log(SecondBanCode);
+				if(PlayerCode == SecondBanCode)
+					alert("후 밴 입니다");
 				else
-					alert("선 픽 입니다");
+					alert("선 밴 입니다");
 
 				MapBanList=[false,false,false,false,false,false,false,false,false,false];
 			});
 
-			socket.on('MapBanEnd', (index) => {
+			socket.on('MapBanEnd', (index, Code) => {
 				var clientindex = 0;
 				for(var i = 0; i < MapBanList.length; i++)
 				{
